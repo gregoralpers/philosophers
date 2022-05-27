@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 16:00:55 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/05/27 11:26:53 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/27 13:26:59 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,14 @@ void	*start(void *args)
 	{
 		philo_print(philo, "is thinking");
 		pthread_mutex_lock(philo->lf);
-		check_sleep(philo->data->t_sleep, philo->data);
 		philo_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->rf);
 		philo_print(philo, "has taken a fork");
 		philo_print(philo, "is eating");
 		check_eat(philo->data->t_eat, philo->data);
-		philo->t_meal = find_time();
 		if (!philo->data->stop)
 			philo->num_eat_count += 1;
+		philo->t_meal = find_time();
 		philo_print(philo, "is sleeping");	
 		pthread_mutex_unlock(philo->rf);
 		pthread_mutex_unlock(philo->lf);
@@ -60,7 +59,7 @@ void	*check_monitor(void *args)
 		flag_all_eat = 0;
 		while (++i < philos->data->num_philos)
 		{
-			if (find_time() - (philos + i)->t_meal > philos->data->t_die)
+			if (find_time() - (philos + i)->t_meal >= philos->data->t_die)
 			{
 				philo_print(philos + i, "died");
 				philos->data->stop = 1;
@@ -88,7 +87,7 @@ void	philo_start(t_philo *philos)
 		if (pthread_create(&(philos + i)->pth_t, NULL, &start, philos + i))
 			ft_error("Error: Failed to create the thread");
 		pthread_detach((philos + i)->pth_t);
-		usleep(50);
+		usleep(5);
 	}
 	if (pthread_create(&philos->data->check_monitor, \
 						NULL, &check_monitor, philos))

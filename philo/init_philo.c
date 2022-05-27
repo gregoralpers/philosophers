@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:37:17 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/27 10:35:36 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/27 13:41:45 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	init_data(t_data **data, int argc, char **argv)
 	if (tmp->num_philos < 1 || tmp->num_philos > 250 || tmp->t_die == -1 || \
 		tmp->t_eat == -1 || tmp->t_sleep == -1)
 		return (ft_error("Error: Wrong arguments"));
+	if (tmp->t_eat == tmp->t_sleep && tmp->num_philos % 2 == 0)
+		tmp->t_die++;
 	tmp->num_eat = -1;
 	if (argc == 6)
 	{
@@ -87,7 +89,7 @@ static void	init_philo(t_philo *philo, int i, \
 {
 	philo->index = i + 1;
 	philo->num_eat_count = 0;
-	philo->t_meal = 0;
+	philo->t_meal = find_time();
 	philo->data = data;
 	if (i == 0)
 	{

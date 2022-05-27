@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:38:35 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/27 11:23:09 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/27 13:48:34 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	check_sleep(long long time, t_data *data)
 	{
 		if (find_time() - t >= time)
 			break ;
-		usleep(time - 1);
+		usleep(50);
 	}
 }
 
@@ -54,6 +54,6 @@ void	check_eat(long long time, t_data *data)
 	{
 		if (find_time() - t >= time)
 			break ;
-		usleep(time - 1);
+		usleep(50);
 	}
 }
