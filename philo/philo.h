@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:11:02 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/22 10:41:58 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/27 10:02:13 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int			init_philos(t_philo **philos, int argc, char **argv);
 //utility
 int			ft_error(char *str);
 long long	find_time(void);
-void		check_time(long long time, t_data *data);
+void		check_sleep(long long time, t_data *data);
+void		check_eat(long long time, t_data *data);
 
 #endif

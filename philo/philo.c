@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 16:00:55 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/05/24 14:02:01 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/27 11:26:53 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@ void	*start(void *args)
 	{
 		philo_print(philo, "is thinking");
 		pthread_mutex_lock(philo->lf);
+		check_sleep(philo->data->t_sleep, philo->data);
 		philo_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->rf);
 		philo_print(philo, "has taken a fork");
 		philo_print(philo, "is eating");
-		check_time(philo->data->t_eat, philo->data);
+		check_eat(philo->data->t_eat, philo->data);
 		philo->t_meal = find_time();
-		pthread_mutex_unlock(philo->rf);
-		pthread_mutex_unlock(philo->lf);
 		if (!philo->data->stop)
 			philo->num_eat_count += 1;
-		philo_print(philo, "is sleeping");
-		check_time(philo->data->t_sleep, philo->data);
+		philo_print(philo, "is sleeping");	
+		pthread_mutex_unlock(philo->rf);
+		pthread_mutex_unlock(philo->lf);
+		check_sleep(philo->data->t_sleep, philo->data);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:38:35 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/24 18:15:05 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/27 11:23:09 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ long long	find_time(void)
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-void	check_time(long long time, t_data *data)
+void	check_sleep(long long time, t_data *data)
 {
 	long long	t;
 
@@ -41,6 +41,19 @@ void	check_time(long long time, t_data *data)
 	{
 		if (find_time() - t >= time)
 			break ;
-		usleep(500);
+		usleep(time - 1);
+	}
+}
+
+void	check_eat(long long time, t_data *data)
+{
+	long long	t;
+
+	t = find_time();
+	while (!data->stop)
+	{
+		if (find_time() - t >= time)
+			break ;
+		usleep(time - 1);
 	}
 }
