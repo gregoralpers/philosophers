@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:41:40 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/24 10:43:39 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/27 17:05:51 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	philo_start(t_philo *philo)
 			NULL, &check_monitor, philo))
 		ft_error("Error: Failed to create the thread");
 	if (philo->index % 2 == 0)
-		usleep(100);
+		usleep(5);
 	while (1)
 	{
 		philo_print(philo, "is thinking");

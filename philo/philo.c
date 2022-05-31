@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 16:00:55 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/05/27 13:26:59 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/31 16:59:56 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*check_monitor(void *args)
 		{
 			if (find_time() - (philos + i)->t_meal >= philos->data->t_die)
 			{
-				philo_print(philos + i, "died");
+				philo_print_death(philos + i, "died");
 				philos->data->stop = 1;
 				break ;
 			}
@@ -84,9 +84,9 @@ void	philo_start(t_philo *philos)
 	while (++i < philos->data->num_philos)
 	{	
 		(philos + i)->t_meal = find_time();
-		if (pthread_create(&(philos + i)->pth_t, NULL, &start, philos + i))
+		if (pthread_create(&(philos + i)->philo_thread, NULL, &start, philos + i))
 			ft_error("Error: Failed to create the thread");
-		pthread_detach((philos + i)->pth_t);
+		pthread_detach((philos + i)->philo_thread);
 		usleep(5);
 	}
 	if (pthread_create(&philos->data->check_monitor, \

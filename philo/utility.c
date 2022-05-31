@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:38:35 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/27 13:48:34 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/31 16:59:18 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,13 @@ void	check_eat(long long time, t_data *data)
 			break ;
 		usleep(50);
 	}
+}
+
+
+void	philo_print_death(t_philo *philo, char *str)
+{
+	pthread_mutex_lock(&philo->data->mutex_printf);
+	if (!philo->data->stop)
+		printf("%lld %d %s\n", \
+			find_time() - philo->data->t_start, philo->index, str);
 }

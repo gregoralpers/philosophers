@@ -6,7 +6,7 @@
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:11:02 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/27 10:02:13 by galpers          ###   ########.fr       */
+/*   Updated: 2022/05/31 16:59:41 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philo
 	t_data			*data;
 	pthread_mutex_t	*lf;
 	pthread_mutex_t	*rf;
-	pthread_t		pth_t;
+	pthread_t		philo_thread;
 }t_philo;
 
 //initiation
@@ -53,5 +53,6 @@ int			ft_error(char *str);
 long long	find_time(void);
 void		check_sleep(long long time, t_data *data);
 void		check_eat(long long time, t_data *data);
+void		philo_print_death(t_philo *philo, char *str);
 
 #endif
