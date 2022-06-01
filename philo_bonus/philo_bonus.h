@@ -6,7 +6,7 @@
 /*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:41:23 by galpers           #+#    #+#             */
-/*   Updated: 2022/06/01 15:55:09 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 16:29:24 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_BONUS_H
 
 # include <stdio.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -37,6 +38,7 @@ typedef struct s_philo
 	int				*pid;
 	sem_t			*block_stop;
 	sem_t			*block_t_meal;
+	sem_t			*block_meal_count;
 	sem_t			*block_printf;
 	sem_t			*block_fork;
 	long long int	t_start;
@@ -56,4 +58,6 @@ void		philo_print(t_philo *philo, char *str);
 int			stop_check(t_philo *philo);
 int			check_meal_time(t_philo *philos);
 void		update_meal_time(t_philo *philo);
+void		check_meal_count(t_philo *philos);
+void		update_meal_count(t_philo *philo);
 #endif

@@ -6,14 +6,14 @@
 #    By: galpers <galpers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/24 10:36:10 by galpers           #+#    #+#              #
-#    Updated: 2022/06/01 16:00:57 by galpers          ###   ########.fr        #
+#    Updated: 2022/06/01 16:46:01 by galpers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	philo_bonus
 
 CC			=	gcc -g
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=thread -g
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=thread
 RM_DIR		=	rm -rf
 RM_FILE		=	rm -f
 INCLUDES	= 	-I .

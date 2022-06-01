@@ -6,7 +6,7 @@
 /*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:41:40 by galpers           #+#    #+#             */
-/*   Updated: 2022/06/01 15:26:48 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 16:41:21 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,13 @@ void	*check_monitor(void *args)
 			sem_post(philo->block_stop);
 			break ;
 		}
-		if (philo->num_eat != -1 && philo->num_eat_count >= philo->num_eat)
-		{
-			philo->stop = 1;
-			break ;
-		}
-	}
+		check_meal_count(philo);
+	}	
 	if (philo->died)
 		exit (1);
 	else
 		exit (0);
-}
+}	
 
 void	philo_start(t_philo *philo)
 {
@@ -61,7 +57,7 @@ void	philo_start(t_philo *philo)
 		update_meal_time(philo);
 		sem_post(philo->block_fork);
 		sem_post(philo->block_fork);
-		philo->num_eat_count += 1;
+		update_meal_count(philo);
 		philo_print(philo, "is sleeping");
 		check_sleep(philo->t_sleep, philo);
 	}
@@ -93,10 +89,12 @@ void	exit_philo(t_philo **philo)
 	sem_close(tmp->block_fork);
 	sem_close(tmp->block_stop);
 	sem_close(tmp->block_t_meal);
+	sem_close(tmp->block_meal_count);
 	sem_unlink("/block_print");
 	sem_unlink("/block_forks");
 	sem_unlink("/block_stop");
 	sem_unlink("/block_t_meal");
+	sem_unlink("/block_meal_count");
 	free(tmp->pid);
 	free(tmp);
 }
