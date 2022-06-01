@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: galpers <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: galpers <galpers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/22 10:38:04 by galpers           #+#    #+#              #
-#    Updated: 2022/05/22 10:38:08 by galpers          ###   ########.fr        #
+#    Updated: 2022/06/01 12:53:59 by galpers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME		=	philo
 
 CC			=	gcc -g
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=thread
 RM_DIR		=	rm -rf
 RM_FILE		=	rm -f
 INCLUDES	= 	-I .
@@ -22,7 +22,8 @@ INCLUDES	= 	-I .
 HEADER		=	./philo.h
 SRC			=	philo.c \
 				init_philo.c \
-				utility.c
+				utility.c \
+				utility2.c
 
 OBJ_DIR		=	obj
 OBJ 		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))

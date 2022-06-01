@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:11:02 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/31 16:59:41 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:15:57 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ typedef struct s_data
 	int				t_sleep;
 	int				num_eat;
 	int				stop;
+	pthread_mutex_t	mutex_stop;
+	pthread_mutex_t	mutex_meal_time;
+	pthread_mutex_t	mutex_meal_count;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	mutex_printf;
 	long long int	t_start;
@@ -42,7 +45,7 @@ typedef struct s_philo
 	t_data			*data;
 	pthread_mutex_t	*lf;
 	pthread_mutex_t	*rf;
-	pthread_t		philo_thread;
+	pthread_t		p_thread;
 }t_philo;
 
 //initiation
@@ -51,8 +54,13 @@ int			init_philos(t_philo **philos, int argc, char **argv);
 //utility
 int			ft_error(char *str);
 long long	find_time(void);
-void		check_sleep(long long time, t_data *data);
-void		check_eat(long long time, t_data *data);
-void		philo_print_death(t_philo *philo, char *str);
+void		check_time(long long time, t_philo *philo);
+void		philo_print_death(t_philo *philo, char *str, t_philo *philos);
+int			stop_check(t_philo *philo);
+void		update_meal_time(t_philo *philo);
+int			check_meal_time(t_philo *philos, int i);
+int			check_meal_count(t_philo *philos, int i);
+void		update_meal_count(t_philo *philo);
+void		number_of_meals_reached(t_philo *philo);
 
 #endif
