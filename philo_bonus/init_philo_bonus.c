@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:58:02 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/24 10:45:08 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 16:00:32 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,15 @@ t_philo	*init_philo(int argc, char **argv)
 		ft_error("Error: malloc error (init pid)");
 	sem_unlink("/block_print");
 	sem_unlink("/block_forks");
+	sem_unlink("/block_stop");
+	sem_unlink("/block_t_meal");
 	tmp->block_printf = sem_open("/block_print", O_CREAT, 0644, 1);
 	tmp->block_fork = sem_open("/block_forks", O_CREAT, \
 								0644, tmp->num_forks);
-	if (tmp->block_printf <= 0 || tmp->block_fork <= 0)
+	tmp->block_stop = sem_open("/block_stop", O_CREAT, 0644, 1);
+	tmp->block_t_meal = sem_open("/block_t_meal", O_CREAT, 0644, 1);
+	if (tmp->block_printf == SEM_FAILED || tmp->block_fork == SEM_FAILED || \
+		tmp->block_stop == SEM_FAILED || tmp->block_t_meal == SEM_FAILED)
 		ft_error("Error: semaphore open error");
 	return (tmp);
 }

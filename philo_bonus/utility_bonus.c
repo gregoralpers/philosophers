@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 10:43:55 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/24 14:50:41 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 15:12:19 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_sleep(long long time, t_philo *philo)
 	long long	t;
 
 	t = find_time();
-	while (!philo->stop)
+	while (stop_check(philo) == 0)
 	{
 		if (find_time() - t >= time)
 			break ;
@@ -48,7 +48,19 @@ void	check_sleep(long long time, t_philo *philo)
 void	philo_print(t_philo *philo, char *str)
 {
 	sem_wait(philo->block_printf);
-	if (!philo->stop)
+	if (stop_check(philo) == 0)
 		printf("%lld %d %s\n", find_time() - philo->t_start, philo->index, str);
 	sem_post(philo->block_printf);
+}
+
+int	stop_check(t_philo *philo)
+{
+	sem_wait(philo->block_stop);
+	if (philo->stop == 0)
+	{
+		sem_post(philo->block_stop);
+		return (0);
+	}
+	sem_post(philo->block_stop);
+	return (1);
 }

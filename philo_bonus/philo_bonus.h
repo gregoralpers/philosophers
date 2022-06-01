@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:41:23 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/24 10:54:46 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 15:55:09 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <sys/wait.h>
 # include "semaphore.h"
 
 # include <signal.h>
@@ -34,6 +35,8 @@ typedef struct s_philo
 	int				stop;
 	int				died;
 	int				*pid;
+	sem_t			*block_stop;
+	sem_t			*block_t_meal;
 	sem_t			*block_printf;
 	sem_t			*block_fork;
 	long long int	t_start;
@@ -50,4 +53,7 @@ int			ft_error(char *str);
 long long	find_time(void);
 void		check_sleep(long long time, t_philo *philo);
 void		philo_print(t_philo *philo, char *str);
+int			stop_check(t_philo *philo);
+int			check_meal_time(t_philo *philos);
+void		update_meal_time(t_philo *philo);
 #endif

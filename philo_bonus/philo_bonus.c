@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:41:40 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/27 17:05:51 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 15:26:48 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,17 @@ void	*check_monitor(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	while (!philo->stop)
+	while (!stop_check(philo))
 	{
-		usleep(100);
-		if (find_time() - philo->t_meal > philo->t_die)
+		if (check_meal_time(philo) == 1)
 		{
 			philo->died = 1;
 			sem_wait(philo->block_printf);
 			printf("%lld %d %s\n", \
 					find_time() - philo->t_start, philo->index, "died");
+			sem_wait(philo->block_stop);
 			philo->stop = 1;
+			sem_post(philo->block_stop);
 			break ;
 		}
 		if (philo->num_eat != -1 && philo->num_eat_count >= philo->num_eat)
@@ -48,7 +49,7 @@ void	philo_start(t_philo *philo)
 		ft_error("Error: Failed to create the thread");
 	if (philo->index % 2 == 0)
 		usleep(5);
-	while (1)
+	while (!stop_check(philo))
 	{
 		philo_print(philo, "is thinking");
 		sem_wait(philo->block_fork);
@@ -57,7 +58,7 @@ void	philo_start(t_philo *philo)
 		philo_print(philo, "has taken a fork");
 		philo_print(philo, "is eating");
 		check_sleep(philo->t_eat, philo);
-		philo->t_meal = find_time();
+		update_meal_time(philo);
 		sem_post(philo->block_fork);
 		sem_post(philo->block_fork);
 		philo->num_eat_count += 1;
@@ -90,8 +91,12 @@ void	exit_philo(t_philo **philo)
 	}
 	sem_close(tmp->block_printf);
 	sem_close(tmp->block_fork);
+	sem_close(tmp->block_stop);
+	sem_close(tmp->block_t_meal);
 	sem_unlink("/block_print");
 	sem_unlink("/block_forks");
+	sem_unlink("/block_stop");
+	sem_unlink("/block_t_meal");
 	free(tmp->pid);
 	free(tmp);
 }
@@ -112,7 +117,7 @@ int	main(int argc, char **argv)
 		if (philo->pid[i] == 0)
 		{
 			philo->index = i + 1;
-			philo->t_meal = find_time();
+			update_meal_time(philo);
 			philo_start(philo);
 		}
 	}
