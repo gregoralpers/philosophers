@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:37:17 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/31 16:48:35 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:06:54 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	init_data(t_data **data, int argc, char **argv)
 	if (tmp->num_philos < 1 || tmp->num_philos > 250 || tmp->t_die == -1 || \
 		tmp->t_eat == -1 || tmp->t_sleep == -1)
 		return (ft_error("Error: Wrong arguments"));
-	if (tmp->t_eat + tmp->t_sleep ==tmp->t_die && tmp->num_philos % 2 == 0)
+	if (tmp->t_eat + tmp->t_sleep == tmp->t_die && tmp->num_philos % 2 == 0)
 		tmp->t_die++;
 	tmp->num_eat = -1;
 	if (argc == 6)
@@ -113,6 +113,12 @@ int	init_philos(t_philo **philos, int argc, char **argv)
 		return (-1);
 	if (pthread_mutex_init(&data->mutex_printf, NULL))
 		return (ft_error("Error: pthread_mutex_print"));
+	if (pthread_mutex_init(&data->mutex_stop, NULL))
+		return (ft_error("Error: p_thread_mutex_stop"));
+	if (pthread_mutex_init(&data->mutex_meal_time, NULL))
+		return (ft_error("Error: p_thread_mutex_meal_time"));
+	if (pthread_mutex_init(&data->mutex_meal_count, NULL))
+		return (ft_error("Error: p_thread_mutex_meal_count"));
 	if (init_mutex_fork(data) == -1)
 		return (-1);
 	tmp = (t_philo *)malloc(sizeof(t_philo) * data->num_philos);

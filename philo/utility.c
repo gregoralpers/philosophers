@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:38:35 by galpers           #+#    #+#             */
-/*   Updated: 2022/05/31 16:59:18 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:17:13 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,37 @@ long long	find_time(void)
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-void	check_sleep(long long time, t_data *data)
+void	check_time(long long time, t_philo *philo)
 {
 	long long	t;
 
 	t = find_time();
-	while (!data->stop)
+	while (!stop_check(philo))
 	{
 		if (find_time() - t >= time)
 			break ;
-		usleep(50);
+		usleep(500);
 	}
 }
 
-void	check_eat(long long time, t_data *data)
+int	stop_check(t_philo *philo)
 {
-	long long	t;
-
-	t = find_time();
-	while (!data->stop)
+	pthread_mutex_lock(&philo->data->mutex_stop);
+	if (philo->data->stop == 0)
 	{
-		if (find_time() - t >= time)
-			break ;
-		usleep(50);
+		pthread_mutex_unlock(&philo->data->mutex_stop);
+		return (0);
 	}
+	return (1);
 }
 
-
-void	philo_print_death(t_philo *philo, char *str)
+void	philo_print_death(t_philo *philo, char *str, t_philo *philos)
 {
 	pthread_mutex_lock(&philo->data->mutex_printf);
-	if (!philo->data->stop)
-		printf("%lld %d %s\n", \
+	printf("%lld %d %s\n", \
 			find_time() - philo->data->t_start, philo->index, str);
+	pthread_mutex_lock(&philo->data->mutex_stop);
+	philos->data->stop = 1;
+	pthread_mutex_unlock(&philo->data->mutex_stop);
+	pthread_mutex_unlock(&philo->data->mutex_printf);
 }

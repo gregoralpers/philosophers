@@ -3,27 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: galpers <galpers@student.42.fr>            +#+  +:+       +#+         #
+#    By: galpers <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/22 10:38:04 by galpers           #+#    #+#              #
-#    Updated: 2022/06/01 12:53:59 by galpers          ###   ########.fr        #
+#    Created: 2022/05/24 10:36:10 by galpers           #+#    #+#              #
+#    Updated: 2022/06/06 11:39:06 by galpers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
-NAME		=	philo
+NAME		=	philo_bonus
 
 CC			=	gcc -g
 FLAGS		=	-Wall -Wextra -Werror -fsanitize=thread
-RM_DIR		=	rm -rf
 RM_FILE		=	rm -f
 INCLUDES	= 	-I .
 
-HEADER		=	./philo.h
-SRC			=	philo.c \
-				init_philo.c \
-				utility.c \
-				utility2.c
+HEADER		=	./philo_bonus.h
+SRC			=	philo_bonus.c \
+				init_philo_bonus.c \
+				utility_bonus.c 
 
 OBJ_DIR		=	obj
 OBJ 		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
