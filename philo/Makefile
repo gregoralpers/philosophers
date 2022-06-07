@@ -6,7 +6,7 @@
 #    By: galpers <galpers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/22 10:38:04 by galpers           #+#    #+#              #
-#    Updated: 2022/06/01 12:53:59 by galpers          ###   ########.fr        #
+#    Updated: 2022/06/01 16:03:41 by galpers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME		=	philo
 
 CC			=	gcc -g
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=thread
+FLAGS		=	-Wall -Wextra -Werror 
 RM_DIR		=	rm -rf
 RM_FILE		=	rm -f
 INCLUDES	= 	-I .

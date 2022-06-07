@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 16:00:55 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/01 13:16:34 by galpers          ###   ########.fr       */
+/*   Created: 2022/06/07 12:46:06 by galpers           #+#    #+#             */
+/*   Updated: 2022/06/07 12:46:11 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	*start(void *args)
 		philo_print(philo, "has taken a fork");
 		philo_print(philo, "is eating");
 		check_time(philo->data->t_eat, philo);
+		update_meal_time(philo);
 		if (stop_check(philo) == 0)
 			update_meal_count(philo);
-		update_meal_time(philo);
 		philo_print(philo, "is sleeping");
 		pthread_mutex_unlock(philo->rf);
 		pthread_mutex_unlock(philo->lf);
