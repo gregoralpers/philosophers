@@ -1,21 +1,75 @@
 philo 4 310 200 100
 LOG ERROR: Output after death
-0 1 is thinking
 0 1 has taken a fork
 0 1 has taken a fork
 0 1 is eating
-0 2 is thinking
-0 3 is thinking
 0 3 has taken a fork
 0 3 has taken a fork
 0 3 is eating
-0 4 is thinking
 200 3 is sleeping
 200 1 is sleeping
 200 4 has taken a fork
+200 4 has taken a fork
+200 4 is eating
 200 2 has taken a fork
 200 2 has taken a fork
 200 2 is eating
-200 4 has taken a fork
-200 4 is eating
 300 3 is thinking
+
+
+philo_bonus
+Should fail: no error message
+
+philo_bonus a a a a
+Should fail: non zero status code: 0
+
+philo_bonus aaaaaaaaaaaaaaaaaaaaaaaaaaaaa a a a
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 10 10 10 10
+Should fail: non zero status code: 0
+
+philo_bonus -1 10 10 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 -1 10 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 -1 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 10 -1
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 10 10 -1
+Should fail: non zero status code: 0
+
+philo_bonus 4294967296 10 10 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 4294967296 10 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 4294967296 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 10 4294967296
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 10 10 4294967296
+Should fail: non zero status code: 0
+
+philo_bonus -4294967295 10 10 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 -4294967295 10 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 -4294967295 10
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 10 -4294967295
+Should fail: non zero status code: 0
+
+philo_bonus 10 10 10 10 -4294967295
+Should fail: non zero status code: 0

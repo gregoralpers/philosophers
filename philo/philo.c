@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 16:00:55 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/01 13:16:34 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/02 12:03:28 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	*start(void *args)
 	philo = (t_philo *)args;
 	while (stop_check(philo) == 0)
 	{
-		philo_print(philo, "is thinking");
 		pthread_mutex_lock(philo->lf);
 		philo_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->rf);
@@ -42,6 +41,7 @@ void	*start(void *args)
 		pthread_mutex_unlock(philo->rf);
 		pthread_mutex_unlock(philo->lf);
 		check_time(philo->data->t_sleep, philo);
+		philo_print(philo, "is thinking");
 	}
 	return (0);
 }
@@ -68,7 +68,7 @@ void	*check_monitor(void *args)
 				flag_all_eat++;
 		}
 		if (flag_all_eat == philos->data->num_philos)
-		{
+		{			
 			number_of_meals_reached(philos);
 		}
 	}

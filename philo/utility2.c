@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 12:41:24 by galpers           #+#    #+#             */
-/*   Updated: 2022/06/01 13:15:37 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/01 19:20:42 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	update_meal_count(t_philo *philo)
 
 void	number_of_meals_reached(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->data->mutex_printf);
 	pthread_mutex_lock(&philo->data->mutex_stop);
 	philo->data->stop = 1;
 	pthread_mutex_unlock(&philo->data->mutex_stop);

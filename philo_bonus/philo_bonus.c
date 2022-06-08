@@ -50,7 +50,7 @@ void	philo_start(t_philo *philo)
 		usleep(10);
 	while (1)
 	{
-		philo_print(philo, "is thinking");
+		philo_print(philo, "is thinking");q
 		sem_wait(philo->block_fork);
 		philo_print(philo, "has taken a fork");
 		sem_wait(philo->block_fork);
