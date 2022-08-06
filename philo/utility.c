@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:38:35 by galpers           #+#    #+#             */
-/*   Updated: 2022/06/01 12:17:13 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/10 19:00:30 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,9 @@ int	stop_check(t_philo *philo)
 
 void	philo_print_death(t_philo *philo, char *str, t_philo *philos)
 {
-	pthread_mutex_lock(&philo->data->mutex_printf);
 	printf("%lld %d %s\n", \
 			find_time() - philo->data->t_start, philo->index, str);
 	pthread_mutex_lock(&philo->data->mutex_stop);
 	philos->data->stop = 1;
 	pthread_mutex_unlock(&philo->data->mutex_stop);
-	pthread_mutex_unlock(&philo->data->mutex_printf);
 }

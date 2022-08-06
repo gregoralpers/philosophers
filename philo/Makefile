@@ -5,16 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: galpers <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/22 10:38:04 by galpers           #+#    #+#              #
-#    Updated: 2022/06/01 19:21:25 by galpers          ###   ########.fr        #
+#    Created: 2022/06/10 18:31:28 by galpers           #+#    #+#              #
+#    Updated: 2022/08/02 14:28:42 by galpers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 
 NAME		=	philo
 
 CC			=	gcc -g
-FLAGS		=	-Wall -Wextra -Werror 
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=thread
 RM_DIR		=	rm -rf
 RM_FILE		=	rm -f
 INCLUDES	= 	-I .

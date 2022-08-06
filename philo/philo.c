@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 16:00:55 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/02 12:03:28 by galpers          ###   ########.fr       */
+/*   Created: 2022/06/10 18:31:38 by galpers           #+#    #+#             */
+/*   Updated: 2022/06/10 19:00:48 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	philo_print(t_philo *philo, char *str)
 {
-	pthread_mutex_lock(&philo->data->mutex_printf);
 	if (stop_check(philo) == 0)
 		printf("%lld %d %s\n", \
 			find_time() - philo->data->t_start, philo->index, str);
-	pthread_mutex_unlock(&philo->data->mutex_printf);
 }
 
 void	*start(void *args)
@@ -28,20 +26,20 @@ void	*start(void *args)
 	philo = (t_philo *)args;
 	while (stop_check(philo) == 0)
 	{
+		philo_print(philo, "is thinking");
 		pthread_mutex_lock(philo->lf);
 		philo_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->rf);
 		philo_print(philo, "has taken a fork");
 		philo_print(philo, "is eating");
 		check_time(philo->data->t_eat, philo);
+		update_meal_time(philo);
 		if (stop_check(philo) == 0)
 			update_meal_count(philo);
-		update_meal_time(philo);
 		philo_print(philo, "is sleeping");
 		pthread_mutex_unlock(philo->rf);
 		pthread_mutex_unlock(philo->lf);
 		check_time(philo->data->t_sleep, philo);
-		philo_print(philo, "is thinking");
 	}
 	return (0);
 }
@@ -87,7 +85,7 @@ void	philo_start(t_philo *philos)
 		if (pthread_create(&(philos + i)->p_thread, NULL, &start, philos + i))
 			ft_error("Error: Failed to create the thread");
 		pthread_detach((philos + i)->p_thread);
-		usleep(5);
+		usleep(50);
 	}
 	if (pthread_create(&philos->data->check_monitor, \
 						NULL, &check_monitor, philos))

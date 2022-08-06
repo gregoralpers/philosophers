@@ -53,7 +53,6 @@ void	update_meal_count(t_philo *philo)
 
 void	number_of_meals_reached(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->mutex_printf);
 	pthread_mutex_lock(&philo->data->mutex_stop);
 	philo->data->stop = 1;
 	pthread_mutex_unlock(&philo->data->mutex_stop);

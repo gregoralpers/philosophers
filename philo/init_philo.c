@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galpers <galpers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: galpers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 10:37:17 by galpers           #+#    #+#             */
-/*   Updated: 2022/06/01 13:06:54 by galpers          ###   ########.fr       */
+/*   Updated: 2022/06/10 18:34:58 by galpers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static int	init_mutex_fork(t_data *data)
 {
 	int				i;
 
-	data->mutex_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
-					* data->num_forks);
+	data->mutex_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* data->num_forks);
 	if (!data->mutex_fork)
 		return (ft_error("Error: Failed to malloc forks"));
 	i = -1;
